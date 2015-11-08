@@ -1,14 +1,14 @@
 {
-  "name": "node-createmutex",
+  "name": "windows-mutex",
   "version": "0.1.0",
-  "description": "Expose the Windows CreateMutex API to node applications",
+  "description": "Exposes the Windows CreateMutex API to Node applications",
   "main": "index.js",
   "scripts": {
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "test": "mocha"
   },
-  "author": "João Moreno",
+  "author": "Microsoft",
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.3.3",
