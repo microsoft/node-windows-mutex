@@ -10,6 +10,21 @@ describe('Mutex', function () {
 	
 	it('should release', function () {
 		var mutex = new Mutex("demo-mutex");
-		mutex.release();
+		assert(mutex.release());
+	});
+	
+	it('should release twice successfully', function () {
+		var mutex = new Mutex("demo-mutex");
+		assert(mutex.release());
+		assert(!mutex.release());
+	});
+	
+	describe('isActive', function () {
+		it('should work', function () {
+			var mutex = new Mutex("demo-mutex");
+			assert(mutex.isActive());
+			mutex.release();
+			assert(!mutex.isActive());
+		});
 	});
 });

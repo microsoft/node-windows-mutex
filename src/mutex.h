@@ -14,6 +14,7 @@ private:
 
 	static NAN_METHOD(New);
 	static NAN_METHOD(Release);
+	static NAN_METHOD(IsActive);
 	static Nan::Persistent<v8::Function> constructor;
 	
 	const char* name_;
