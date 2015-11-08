@@ -10,6 +10,9 @@
   },
   "author": "Microsoft",
   "license": "MIT",
+  "os": [
+    "win32"
+  ],
   "devDependencies": {
     "mocha": "^2.3.3",
     "nan": "^2.1.0",
