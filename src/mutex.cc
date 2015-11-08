@@ -17,6 +17,9 @@ Mutex::Mutex(const char *name, HANDLE mutex) : name_(name), mutex_(mutex) {
 }
 
 Mutex::~Mutex() {
+	if (mutex_ != NULL) {
+		ReleaseMutex(mutex_);
+	}
 }
 
 NAN_METHOD(Mutex::New) {
