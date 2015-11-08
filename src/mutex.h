@@ -4,6 +4,8 @@
 #include <nan.h>
 #include <windows.h>
 
+NAN_METHOD(isActive);
+
 class Mutex : public Nan::ObjectWrap {
 public:
 	static NAN_MODULE_INIT(Init);

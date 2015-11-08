@@ -1,5 +1,24 @@
 #include "mutex.h"
 
+NAN_METHOD(isActive) {
+	if (!info[0]->IsString()) {
+		return Nan::ThrowError(Nan::Error("Provide a mutex name"));
+	}
+	
+	const char *name = *Nan::Utf8String(info[0]);
+	HANDLE mutex = OpenMutex(
+		SYNCHRONIZE,
+		FALSE,
+		name
+	);
+	
+	if (mutex != NULL) {
+		CloseHandle(mutex);
+	}
+	
+	info.GetReturnValue().Set(mutex != NULL);
+}
+
 Nan::Persistent<v8::Function> Mutex::constructor;
 
 NAN_MODULE_INIT(Mutex::Init) {
@@ -19,7 +38,7 @@ Mutex::Mutex(const char *name, HANDLE mutex) : name_(name), mutex_(mutex) {
 
 Mutex::~Mutex() {
 	if (mutex_ != NULL) {
-		ReleaseMutex(mutex_);
+		CloseHandle(mutex_);
 	}
 }
 
@@ -60,7 +79,7 @@ NAN_METHOD(Mutex::Release) {
 		return;
 	}
 	
-	ReleaseMutex(obj->mutex_);
+	CloseHandle(obj->mutex_);
 	obj->mutex_ = NULL;
 	info.GetReturnValue().Set(TRUE);
 }
