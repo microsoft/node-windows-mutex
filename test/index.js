@@ -1,3 +1,5 @@
+/*global describe,it*/
+
 var assert = require('assert');
 var lib = require('../');
 var Mutex = lib.Mutex;
