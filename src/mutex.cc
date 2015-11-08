@@ -7,7 +7,7 @@ NAN_MODULE_INIT(Mutex::Init) {
 	tpl->SetClassName(Nan::New("Mutex").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
-	//Nan::SetPrototypeMethod(tpl, "plusOne", PlusOne);
+	Nan::SetPrototypeMethod(tpl, "release", Mutex::Release);
 
 	constructor.Reset(Nan::GetFunction(tpl).ToLocalChecked());
 	Nan::Set(target, Nan::New("Mutex").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
@@ -48,8 +48,9 @@ NAN_METHOD(Mutex::New) {
 	}
 }
 
-//NAN_METHOD(Mutex::PlusOne) {
-//	Mutex* obj = Nan::ObjectWrap::Unwrap<Mutex>(info.This());
-//	obj->value_ += 1;
-//	info.GetReturnValue().Set(obj->value_);
-//}
+NAN_METHOD(Mutex::Release) {
+	Mutex* obj = Nan::ObjectWrap::Unwrap<Mutex>(info.This());
+	
+	ReleaseMutex(obj->mutex_);
+	obj->mutex_ = NULL;
+}

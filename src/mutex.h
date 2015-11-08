@@ -13,7 +13,7 @@ private:
 	~Mutex();
 
 	static NAN_METHOD(New);
-	//static NAN_METHOD(PlusOne);
+	static NAN_METHOD(Release);
 	static Nan::Persistent<v8::Function> constructor;
 	
 	const char* name_;
