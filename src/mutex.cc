@@ -22,7 +22,7 @@ Mutex::~Mutex() {
 NAN_METHOD(Mutex::New) {
 	if (info.IsConstructCall()) {
 		if (!info[0]->IsString()) {
-			return Nan::ThrowError(Nan::Error("Need a mutex name."));
+			return Nan::ThrowError(Nan::Error("Provide a mutex name"));
 		}
 		
 		const char *name = *Nan::Utf8String(info[0]);
@@ -33,7 +33,7 @@ NAN_METHOD(Mutex::New) {
 		);
 		
 		if (mutex == NULL) {
-			return Nan::ThrowError(Nan::Error("Error creating mutex."));
+			return Nan::ThrowError(Nan::Error("Error creating mutex"));
 		}
 		
 		Mutex *obj = new Mutex(name, mutex);

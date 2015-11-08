@@ -1,8 +1,10 @@
-var CreateMutex = require('../');
+var assert = require('assert');
+var Mutex = require('../').Mutex;
 
-describe('createmutex', function () {
-	it('should work', function () {
-		console.log(CreateMutex);
-		// console.log(CreateMutex('hello'));
+describe('Mutex constructor', function () {
+	it('should throw with bad arguments', function () {
+		assert.throws(function () {
+			new Mutex();
+		});
 	});
 });
