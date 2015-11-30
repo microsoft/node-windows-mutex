@@ -8,7 +8,7 @@
     "build": "node-gyp build",
     "test": "mocha"
   },
-  "author": "Microsoft",
+  "author": "Joao Moreno",
   "license": "MIT",
   "os": [
     "win32"
