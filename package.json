@@ -1,7 +1,7 @@
 {
   "name": "windows-mutex",
   "version": "0.1.0",
-  "description": "Exposes the Windows CreateMutex API to Node applications",
+  "description": "Expose the Windows CreateMutex API to Node.JS",
   "main": "index.js",
   "scripts": {
     "configure": "node-gyp configure",
