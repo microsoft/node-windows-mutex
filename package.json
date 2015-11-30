@@ -1,6 +1,6 @@
 {
   "name": "windows-mutex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Expose the Windows CreateMutex API to Node.JS",
   "main": "index.js",
   "scripts": {
