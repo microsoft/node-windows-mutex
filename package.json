@@ -3,22 +3,28 @@
   "version": "0.1.4",
   "description": "Expose the Windows CreateMutex API to Node.JS",
   "main": "index.js",
-  "scripts": {
-    "configure": "node-gyp configure",
-    "build": "node-gyp build",
-    "test": "mocha"
+  "homepage": "https://github.com/Microsoft/node-windows-mutex",
+  "bugs": "https://github.com/Microsoft/node-windows-mutex/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/node-windows-mutex.git"
   },
-  "author": "Joao Moreno",
+  "author": "Microsoft",
   "license": "MIT",
   "os": [
     "win32"
   ],
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.1.0"
+  },
   "devDependencies": {
     "mocha": "^2.3.3",
     "node-gyp": "^3.0.3"
   },
-  "dependencies": {
-    "bindings": "^1.2.1",
-    "nan": "^2.1.0"
+  "scripts": {
+    "configure": "node-gyp configure",
+    "build": "node-gyp build",
+    "test": "mocha"
   }
 }
