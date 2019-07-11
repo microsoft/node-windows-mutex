@@ -19,12 +19,9 @@
     "nan": "^2.14.0"
   },
   "devDependencies": {
-    "mocha": "^2.3.3",
-    "node-gyp": "^3.0.3"
+    "mocha": "^6.1.4"
   },
   "scripts": {
-    "configure": "node-gyp configure",
-    "build": "node-gyp build",
     "test": "mocha"
   }
 }
