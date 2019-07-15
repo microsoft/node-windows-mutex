@@ -1,6 +1,6 @@
 {
   "name": "windows-mutex",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Expose the Windows CreateMutex API to Node.JS",
   "main": "index.js",
   "homepage": "https://github.com/Microsoft/node-windows-mutex",
@@ -19,12 +19,9 @@
     "nan": "^2.14.0"
   },
   "devDependencies": {
-    "mocha": "^2.3.3",
-    "node-gyp": "^3.0.3"
+    "mocha": "^6.1.4"
   },
   "scripts": {
-    "configure": "node-gyp configure",
-    "build": "node-gyp build",
     "test": "mocha"
   }
 }
