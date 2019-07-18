@@ -24,3 +24,7 @@ var mutex = new Mutex('my-mutex');
 console.log(mutex.isActive());
 mutex.release();
 ```
+
+## Development
+
+Publishing to NPM is automated via CI. As soon as a tag is pushed to the repo, that version will be built and published to NPM.
