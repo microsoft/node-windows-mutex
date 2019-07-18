@@ -22,5 +22,5 @@ steps:
   inputs:
     command: publish
     verbose: false
-    publishEndpoint: npm
+    publishEndpoint: 'NPM joaomoreno.ms'
   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
