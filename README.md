@@ -1,5 +1,7 @@
 # windows-mutex
 
+[![Build Status](https://dev.azure.com/vscode/node-windows-mutex/_apis/build/status/microsoft.node-windows-mutex?branchName=master)](https://dev.azure.com/vscode/node-windows-mutex/_build/latest?definitionId=23&branchName=master)
+
 Expose the Windows CreateMutex API to Node.JS.
 
 ## Installation
