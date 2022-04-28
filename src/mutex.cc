@@ -58,6 +58,12 @@ NAN_METHOD(Mutex::New) {
 		if (mutex == NULL) {
 			return Nan::ThrowError(Nan::Error("Error creating mutex"));
 		}
+
+		DWORD dwError = GetLastError();
+		if (dwError == ERROR_ALREADY_EXISTS) {
+			CloseHandle(mutex);
+			return Nan::ThrowError(Nan::Error("Error mutex already exists"));
+		}
 		
 		Mutex *obj = new Mutex(name, mutex);
 		obj->Wrap(info.This());
