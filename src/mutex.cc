@@ -35,6 +35,12 @@ Mutex::Mutex(const Napi::CallbackInfo& info)
 		  throw Napi::Error::New(env, "Error creating mutex");
     }
 	}
+
+  if (err == ERROR_ALREADY_EXISTS) {
+    CloseHandle(mutex_);
+    mutex_ = NULL;
+    throw Napi::Error::New(env, "Error mutex already exists");
+	}
 }
 
 Mutex::~Mutex() {
