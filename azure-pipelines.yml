@@ -8,14 +8,17 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
-  displayName: 'Use Yarn 1.x'
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
 
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@2
-  displayName: 'Install dependencies'
+- powershell: |
+    yarn
+  displayName: Install Dependencies
 
 - task: Npm@1
   displayName: 'Publish to NPM'
