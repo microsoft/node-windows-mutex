@@ -13,12 +13,18 @@
         'VCCLCompilerTool': {
           'AdditionalOptions': [
             '/Qspectre',
-            '/guard:cf'
+            '/guard:cf',
+            '/ZH:SHA_256'
+            '/w34244',
+            '/w34267',
+            '/sdl'
           ]
         },
         'VCLinkerTool': {
           'AdditionalOptions': [
-            '/guard:cf'
+            '/guard:cf',
+            '/CEFCOMPAT',
+            '/DYNAMICBASE'
           ]
         }
       }
