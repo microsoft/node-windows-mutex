@@ -14,17 +14,14 @@
           'AdditionalOptions': [
             '/Qspectre',
             '/guard:cf',
-            '/ZH:SHA_256'
+            '/ZH:SHA_256',
             '/w34244',
-            '/w34267',
-            '/sdl'
+            '/w34267'
           ]
         },
         'VCLinkerTool': {
           'AdditionalOptions': [
-            '/guard:cf',
-            '/CEFCOMPAT',
-            '/DYNAMICBASE'
+            '/guard:cf'
           ]
         }
       }

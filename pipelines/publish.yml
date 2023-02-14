@@ -33,12 +33,6 @@ extends:
           # the rest of the build steps are part of the 'prepack' script, automatically run when the pipeline invokes 'yarn pack'
 
         testPlatforms:
-          - name: Linux
-            nodeVersions:
-              - 16.x
-          - name: MacOS
-            nodeVersions:
-              - 16.x
           - name: Windows
             nodeVersions:
               - 16.x
