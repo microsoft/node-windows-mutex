@@ -9,11 +9,16 @@
       "include_dirs" : [
         "<!(node -e \"require('nan')\")"
       ],
+      'msvs_configuration_attributes': {
+        'SpectreMitigation': 'Spectre'
+      },
       'msvs_settings': {
         'VCCLCompilerTool': {
           'AdditionalOptions': [
-            '/Qspectre',
-            '/guard:cf'
+            '/guard:cf',
+            '/ZH:SHA_256',
+            '/we4244',
+            '/we4267'
           ]
         },
         'VCLinkerTool': {
