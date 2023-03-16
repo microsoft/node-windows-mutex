@@ -1,13 +1,13 @@
 {
-  "name": "windows-mutex",
+  "name": "@vscode/windows-mutex",
   "version": "0.4.2",
   "description": "Expose the Windows CreateMutex API to Node.JS",
   "main": "index.js",
-  "homepage": "https://github.com/Microsoft/node-windows-mutex",
-  "bugs": "https://github.com/Microsoft/node-windows-mutex/issues",
+  "homepage": "https://github.com/microsoft/node-windows-mutex",
+  "bugs": "https://github.com/microsoft/node-windows-mutex/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/node-windows-mutex.git"
+    "url": "https://github.com/microsoft/node-windows-mutex.git"
   },
   "author": "Microsoft",
   "license": "MIT",
