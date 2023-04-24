@@ -17,7 +17,7 @@
           'AdditionalOptions': [
             '/guard:cf',
             '/ZH:SHA_256',
-            '/we4244',
+            '/w34244',
             '/we4267'
           ]
         },
