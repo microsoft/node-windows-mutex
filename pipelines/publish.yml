@@ -36,6 +36,14 @@ extends:
           - name: Windows
             nodeVersions:
               - 16.x
+            
+          - name: macOS
+            nodeVersions:
+              - 16.x
+
+          - name: linux
+            nodeVersions:
+              - 16.x
 
         testSteps:
           - script: yarn --frozen-lockfile
