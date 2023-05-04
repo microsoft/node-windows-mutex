@@ -3,6 +3,7 @@
   "version": "0.4.3",
   "description": "Expose the Windows CreateMutex API to Node.JS",
   "main": "index.js",
+  "types": "index.d.ts",
   "homepage": "https://github.com/microsoft/node-windows-mutex",
   "bugs": "https://github.com/microsoft/node-windows-mutex/issues",
   "repository": {
@@ -11,9 +12,6 @@
   },
   "author": "Microsoft",
   "license": "MIT",
-  "os": [
-    "win32"
-  ],
   "dependencies": {
     "bindings": "^1.2.1",
     "nan": "^2.17.0"

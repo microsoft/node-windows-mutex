@@ -13,6 +13,15 @@ stages:
       VSCODE_ARCH: ia32
     steps:
       - template: templates/windows.yml
+- stage: macOS
+  pool:
+    vmImage: macos-latest
+  jobs:
+  - job: darwin_x64
+    variables:
+      VSCODE_ARCH: x64
+    steps:
+      - template: templates/macos.yml
 
 trigger:
   branches:
