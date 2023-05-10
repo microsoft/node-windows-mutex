@@ -1,8 +1,9 @@
 /*global describe,it*/
 
-var assert = require('assert');
-var lib = require('../');
-var Mutex = lib.Mutex;
+const assert = require('assert');
+const lib = require('../');
+const Mutex = lib.Mutex;
+const isWindows = process.platform === 'win32';
 
 describe('Mutex', function () {
 	it('constructor should throw with bad arguments', function () {
@@ -11,25 +12,33 @@ describe('Mutex', function () {
 		});
 	});
 	
-	it('should release', function () {
-		var mutex = new Mutex("demo-mutex");
-		assert(mutex.release());
-	});
-	
-	it('should release twice successfully', function () {
-		var mutex = new Mutex("demo-mutex");
-		assert(mutex.release());
-		assert(!mutex.release());
-	});
-	
-	describe('isActive', function () {
-		it('should work', function () {
-			var mutex = new Mutex("demo-mutex");
-			assert(mutex.isActive());
-			mutex.release();
-			assert(!mutex.isActive());
+	if (isWindows) {
+		it('should release', function () {
+			const mutex = new Mutex("demo-mutex");
+			assert(mutex.release());
 		});
-	});
+		
+		it('should release twice successfully', function () {
+			const mutex = new Mutex("demo-mutex");
+			assert(mutex.release());
+			assert(!mutex.release());
+		});
+		
+		describe('isActive', function () {
+			it('should work', function () {
+				const mutex = new Mutex("demo-mutex");
+				assert(mutex.isActive());
+				mutex.release();
+				assert(!mutex.isActive());
+			});
+		});
+	} else {
+		it('should throw', function () {
+			assert.throws(function () {
+				new Mutex("demo-mutex");
+			});
+		});
+	}
 });
 
 describe('isActive', function () {
@@ -39,15 +48,23 @@ describe('isActive', function () {
 		});
 	});
 	
-	it('should work', function () {
-		assert(!lib.isActive("demo-mutex"));
-		
-		var mutex = new Mutex("demo-mutex");
-		assert(mutex.isActive());
-		assert(lib.isActive("demo-mutex"));
-		
-		mutex.release();
-		assert(!mutex.isActive());
-		assert(!lib.isActive("demo-mutex"));
-	});
+	if (isWindows) {
+		it('should work', function () {
+			assert(!lib.isActive("demo-mutex"));
+			
+			const mutex = new Mutex("demo-mutex");
+			assert(mutex.isActive());
+			assert(lib.isActive("demo-mutex"));
+			
+			mutex.release();
+			assert(!mutex.isActive());
+			assert(!lib.isActive("demo-mutex"));
+		});
+	} else {
+		it('should throw', function () {
+			assert.throws(function () {
+				lib.isActive("demo-mutex");
+			})
+		});
+	}
 });
