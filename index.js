@@ -7,8 +7,8 @@ if (isWindows) {
     }
     class Mutex {
         constructor(name) { platformThrow("Mutex#constructor"); }
-        isActive() { platformThrow("Mutex#isActive"); }
-        release() { platformThrow("Mutex#release"); }
+        isActive() { }
+        release() { }
     }
     function isActive(name) { platformThrow("isActive"); }
     module.exports = { Mutex, isActive }

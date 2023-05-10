@@ -19,9 +19,8 @@
               'AdditionalOptions': [
                 '/guard:cf',
                 '/ZH:SHA_256',
-                '/W3',
                 '/w34244',
-                '/w34267'
+                '/we4267'
               ]
             },
             'VCLinkerTool': {
