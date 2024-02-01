@@ -1,26 +1,23 @@
 #ifndef MUTEX_H
 #define MUTEX_H
 
-#include <nan.h>
+#include <napi.h>
 #include <windows.h>
 
-NAN_METHOD(isActive);
-
-class Mutex : public Nan::ObjectWrap {
+class Mutex : public Napi::ObjectWrap<Mutex> {
 public:
-	static NAN_MODULE_INIT(Init);
+  static Napi::Object Init(Napi::Env env, Napi::Object exports);
+  explicit Mutex(const Napi::CallbackInfo& info);
 
 private:
-	explicit Mutex(const char *name, HANDLE mutex);
-	~Mutex();
+  friend class Napi::ObjectWrap<Mutex>;
+  ~Mutex();
 
-	static NAN_METHOD(New);
-	static NAN_METHOD(Release);
-	static NAN_METHOD(IsActive);
-	static Nan::Persistent<v8::Function> constructor;
+  void Release(const Napi::CallbackInfo& info);
+  Napi::Value IsActive(const Napi::CallbackInfo& info);
 
-	const char* name_;
-	HANDLE mutex_;
+  std::string name_;
+  HANDLE mutex_ = NULL;
 };
 
 #endif // !MUTEX_H

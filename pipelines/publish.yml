@@ -1,10 +1,11 @@
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
 trigger:
+  batch: true
   branches:
     include:
       - main
-pr: none
+pr: [main]
 
 resources:
   repositories:
@@ -35,15 +36,15 @@ extends:
         testPlatforms:
           - name: Windows
             nodeVersions:
-              - 16.x
-            
+              - 18.x
+
           - name: macOS
             nodeVersions:
-              - 16.x
+              - 18.x
 
           - name: linux
             nodeVersions:
-              - 16.x
+              - 18.x
 
         testSteps:
           - script: yarn --frozen-lockfile

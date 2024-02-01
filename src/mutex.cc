@@ -1,91 +1,64 @@
 #include "mutex.h"
 
-NAN_METHOD(isActive) {
-	if (!info[0]->IsString()) {
-		return Nan::ThrowError(Nan::Error("Provide a mutex name"));
-	}
-
-	const char *name = *Nan::Utf8String(info[0]);
-	HANDLE mutex = OpenMutex(
-		SYNCHRONIZE,
-		FALSE,
-		name
-	);
-
-	if (mutex != NULL) {
-		CloseHandle(mutex);
-	}
-
-	info.GetReturnValue().Set(mutex != NULL);
+Napi::Object Mutex::Init(Napi::Env env, Napi::Object exports) {
+  Napi::FunctionReference* constructor = new Napi::FunctionReference();
+	Napi::Function definition = DefineClass(env, "Mutex", {
+    InstanceMethod<&Mutex::Release>("release"),
+    InstanceMethod<&Mutex::IsActive>("isActive"),
+  });
+  *constructor = Napi::Persistent(definition);
+  exports.Set("Mutex", definition);
+  env.SetInstanceData<Napi::FunctionReference>(constructor);
+  return exports;
 }
 
-Nan::Persistent<v8::Function> Mutex::constructor;
+Mutex::Mutex(const Napi::CallbackInfo& info)
+    : Napi::ObjectWrap<Mutex>(info) {
+  Napi::Env env(info.Env());
 
-NAN_MODULE_INIT(Mutex::Init) {
-	v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
-	tpl->SetClassName(Nan::New("Mutex").ToLocalChecked());
-	tpl->InstanceTemplate()->SetInternalFieldCount(1);
+  if (!info[0].IsString()) {
+    throw Napi::Error::New(env, "Provide a mutex name");
+  }
 
-	Nan::SetPrototypeMethod(tpl, "release", Mutex::Release);
-	Nan::SetPrototypeMethod(tpl, "isActive", Mutex::IsActive);
+  name_ = info[0].As<Napi::String>();
+  mutex_ = CreateMutex(
+    NULL,
+    TRUE,
+    name_.c_str()
+  );
 
-	constructor.Reset(Nan::GetFunction(tpl).ToLocalChecked());
-	Nan::Set(target, Nan::New("Mutex").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
-}
+  DWORD err = GetLastError();
+  if (mutex_ == NULL) {
+    if (err == ERROR_INVALID_HANDLE) {
+      throw Napi::Error::New(env, "Error provided name is already used for another HANDLE");
+    } else {
+      throw Napi::Error::New(env, "Error creating mutex");
+    }
+  }
 
-Mutex::Mutex(const char *name, HANDLE mutex) : name_(name), mutex_(mutex) {
+  if (err == ERROR_ALREADY_EXISTS) {
+    CloseHandle(mutex_);
+    mutex_ = NULL;
+    throw Napi::Error::New(env, "Error mutex already exists");
+  }
 }
 
 Mutex::~Mutex() {
-	if (mutex_ != NULL) {
-		CloseHandle(mutex_);
-	}
+  if (mutex_ != NULL) {
+    CloseHandle(mutex_);
+  }
 }
 
-NAN_METHOD(Mutex::New) {
-	if (info.IsConstructCall()) {
-		if (!info[0]->IsString()) {
-			return Nan::ThrowError(Nan::Error("Provide a mutex name"));
-		}
+void Mutex::Release(const Napi::CallbackInfo& info) {
+  if (!mutex_) {
+    return;
+  }
 
-		const char *name = *Nan::Utf8String(info[0]);
-		HANDLE mutex = CreateMutex(
-			NULL,
-			TRUE,
-			name
-		);
-
-		if (mutex == NULL) {
-			return Nan::ThrowError(Nan::Error("Error creating mutex"));
-		}
-
-		Mutex *obj = new Mutex(name, mutex);
-		obj->Wrap(info.This());
-		info.GetReturnValue().Set(info.This());
-	}
-	else {
-		const int argc = 1;
-		v8::Local<v8::Value> argv[argc] = { info[0] };
-		v8::Local<v8::Function> cons = Nan::New(constructor);
-		info.GetReturnValue().Set(Nan::NewInstance(cons, argc, argv).ToLocalChecked());
-	}
+  CloseHandle(mutex_);
+  mutex_ = NULL;
 }
 
-NAN_METHOD(Mutex::Release) {
-	Mutex* obj = Nan::ObjectWrap::Unwrap<Mutex>(info.This());
-
-	if (!obj->mutex_) {
-		info.GetReturnValue().Set(FALSE);
-		return;
-	}
-
-	CloseHandle(obj->mutex_);
-	obj->mutex_ = NULL;
-	info.GetReturnValue().Set(TRUE);
-}
-
-NAN_METHOD(Mutex::IsActive) {
-	Mutex* obj = Nan::ObjectWrap::Unwrap<Mutex>(info.This());
-
-	info.GetReturnValue().Set(obj->mutex_ != NULL);
+Napi::Value Mutex::IsActive(const Napi::CallbackInfo& info) {
+  Napi::Env env(info.Env());
+  return Napi::Boolean::New(env, mutex_ != NULL);
 }
