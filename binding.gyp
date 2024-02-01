@@ -2,6 +2,9 @@
   "targets": [
     {
       "target_name": "CreateMutex",
+      "dependencies": [
+      		"<!(node -p \"require('node-addon-api').targets\"):node_addon_api_except",
+		  ],
       "conditions": [
         ['OS=="win"', {
           "sources": [
@@ -9,7 +12,7 @@
             "src/mutex.cc"
           ],
           "include_dirs" : [
-            "<!(node -e \"require('nan')\")"
+
           ],
           'msvs_configuration_attributes': {
             'SpectreMitigation': 'Spectre'

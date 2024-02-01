@@ -13,25 +13,31 @@ describe('Mutex', function () {
 	});
 	
 	if (isWindows) {
-		it('should release', function () {
+		it('should work', function () {
 			const mutex = new Mutex("demo-mutex");
-			assert(mutex.release());
+			assert(mutex.isActive());
+			mutex.release();
+			assert(!mutex.isActive());
 		});
 		
 		it('should release twice successfully', function () {
 			const mutex = new Mutex("demo-mutex");
-			assert(mutex.release());
-			assert(!mutex.release());
+			assert(mutex.isActive());
+			mutex.release();
+			assert(!mutex.isActive());
+			mutex.release();
+			assert(!mutex.isActive());
 		});
-		
-		describe('isActive', function () {
-			it('should work', function () {
-				const mutex = new Mutex("demo-mutex");
-				assert(mutex.isActive());
-				mutex.release();
-				assert(!mutex.isActive());
+
+		it('should throw when mutex is already created', function () {
+			const mutex = new Mutex("demo-mutex");
+			assert(mutex.isActive());
+			assert.throws(function () {
+				new Mutex("demo-mutex");
 			});
-		});
+			mutex.release();
+			assert(!mutex.isActive());
+		})
 	} else {
 		it('should throw', function () {
 			assert.throws(function () {
