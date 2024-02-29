@@ -53,5 +53,8 @@ extends:
           - script: yarn test
             displayName: Compile & test npm package
 
+        apiScanSoftwareName: 'vscode-windows-mutex'
+        apiScanSoftwareVersion: '0.5'
+
         publishPackage: ${{ parameters.publishPackage }}
         packagePlatform: Windows
