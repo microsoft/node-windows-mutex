@@ -20,6 +20,8 @@
               'AdditionalOptions': [
                 '/guard:cf',
                 '/W3',
+                '/w34244',
+                '/w34267',
                 '/ZH:SHA_256'
               ]
             },
