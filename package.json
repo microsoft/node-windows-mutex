@@ -1,6 +1,6 @@
 {
   "name": "@vscode/windows-mutex",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Expose the Windows CreateMutex API to Node.JS",
   "main": "index.js",
   "types": "index.d.ts",
